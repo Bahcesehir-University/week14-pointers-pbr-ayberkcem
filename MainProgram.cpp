@@ -22,6 +22,8 @@
  ******************************************************************************/
 
 #include <iostream>
+#include <cmath>
+
 using namespace std;
 
 /* ===========================================================================
@@ -57,7 +59,15 @@ int main() {
     //          Print their sum and their difference, each on its own line:
     //          Sum: 11
     //          Diff: 5
+int score = 75;
+cout << "Score: " << score << endl;
+int x = 8;
+int y = 3;
+cout << "x is = " << x;
+cout << " and y is " << y << endl;
 
+cout << "Sum: " << x + y << endl;
+cout << "Diff: " << x - y << endl;
     cout << "\n";
 
     /* -----------------------------------------------------------------------
@@ -69,7 +79,7 @@ int main() {
      *
      * Example (already complete - read it carefully):
      * --------------------------------------------------------------------- */
-    cout << "--- Section 2: Core Concepts ---\n";
+   cout << "--- Section 2: Core Concepts ---\n";
 
     int value = 42;
     int* ptr = &value;          // ptr now points to value
@@ -79,12 +89,16 @@ int main() {
     cout << "value now  = " << value  << "\n";   // 100
 
     // TODO 2a: Declare an int 'apples' = 10 and an int pointer 'pApples'
-    //          that points to apples. Using the POINTER only (not 'apples'
-    //          directly), add 5 to apples. Then print:  apples = 15
+    int apples = 10;
+    int* pApples = &apples;
+    *pApples += 5;              
+    cout << "apples = " << apples << endl;
 
-    // TODO 2b: A reference is an alias. Declare int 'gold' = 50 and an
-    //          int reference 'alias' bound to gold. Change gold to 99 THROUGH
-    //          'alias'. Then print:  gold = 99
+    // TODO 2b: A reference is an alias. Declare int 'gold' = 50  
+    int gold = 50;
+    int& alias = gold;          
+    alias = 99;                 
+    cout << "gold = " << gold << endl;
 
     cout << "\n";
 
@@ -98,7 +112,7 @@ int main() {
     // Exercise 3.1 - swap using POINTERS
     int p = 1, q = 2;
     swapByPointer(&p, &q);
-    cout << "After swapByPointer:   p=" << p << " q=" << q << "\n"; // p=2 q=1
+    cout << "After swapByPointer:   p=" << p << " q=" << q << "\n"; // p
 
     // Exercise 3.2 - swap using REFERENCES
     int r = 7, s = 9;
@@ -118,7 +132,6 @@ int main() {
     cout << "Sum=" << total << " Count=" << howMany << "\n";        // Sum=100 Count=4
 
     cout << "\n";
-
     /* -----------------------------------------------------------------------
      * SECTION 4 - CHALLENGE  (10 min)
      * Slightly open-ended, system-like tasks.
@@ -156,6 +169,9 @@ int main() {
 // Exercise 3.1
 // Swap the two ints that a and b POINT TO (use dereferencing *a, *b).
 void swapByPointer(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
     // TODO 3.1: swap the values pointed to by a and b
 }
 
@@ -163,12 +179,16 @@ void swapByPointer(int* a, int* b) {
 // Swap the two ints that a and b REFER TO (a and b are aliases).
 void swapByReference(int& a, int& b) {
     // TODO 3.2: swap a and b
+    int temp = a;
+    a = b ; 
+    b = temp;
 }
 
 // Exercise 3.3
 // Add 1 to the variable that n refers to.
 void incrementByReference(int& n) {
     // TODO 3.3: increment n by 1
+    n++;
 }
 
 // Exercise 3.4
@@ -176,16 +196,25 @@ void incrementByReference(int& n) {
 // ALSO set outCount (by reference) to how many elements were summed.
 int sumAndCount(const int arr[], int size, int& outCount) {
     // TODO 3.4a: set outCount to size
+    outCount = size;
+    
     // TODO 3.4b: compute and return the sum of arr[0..size-1]
-    return 0; // replace this
+    int totalSum = 0;
+    for (int i = 0; i < size; ++i) {
+        totalSum += arr[i];
+    }
+    
+    return totalSum; 
 }
-
 // Challenge 4.1
 // Modify 'celsius' in place: round to 1 decimal, and if the magnitude is
 // less than 0.05 set it to exactly 0.0.
 // Hint: rounding to 1 decimal -> round(celsius * 10.0) / 10.0
 void normalizeTemperature(double& celsius) {
     // TODO 4.1: implement in place (no return value)
+    celsius = round(celsius * 10.0) / 10.0;
+    if (celsius < 0.05 && celsius > -0.05)
+    celsius = 0.0;
 }
 
 // Challenge 4.2
@@ -194,4 +223,8 @@ void normalizeTemperature(double& celsius) {
 //   if value > high -> value = high
 void clampToRange(int& value, int low, int high) {
     // TODO 4.2: clamp value into [low, high]
+    if (value > high) value = high;
+        if (value < low ) value = low;
+
+  
 }
